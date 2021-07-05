@@ -1,5 +1,6 @@
 package com.github.ivbaranov.mli.example.slice;
 
+import com.github.ivbaranov.mli.example.ResourceTable;
 import ohos.aafwk.ability.AbilitySlice;
 import ohos.aafwk.content.Intent;
 import ohos.agp.animation.Animator;
@@ -7,7 +8,6 @@ import ohos.agp.animation.AnimatorProperty;
 import ohos.agp.components.Button;
 import ohos.agp.components.Component;
 import ohos.agp.components.Image;
-import com.github.ivbaranov.mli.example.ResourceTable;
 
 
 /**
@@ -26,7 +26,7 @@ public class MainAbilitySlice extends AbilitySlice {
 
         image = (Image) findComponentById(ResourceTable.Id_image_main);
         animatorProperty = image.createAnimatorProperty();
-        animatorProperty.setDuration(5000).alpha(0).rotate(360).setLoopedCount(-1).setCurveType(Animator.CurveType.ACCELERATE);
+        animatorProperty.setDuration(5000).alpha(0).rotate(360).setCurveType(Animator.CurveType.ACCELERATE);
         image.setBindStateChangedListener(new Component.BindStateChangedListener() {
             @Override
             public void onComponentBoundToWindow(Component component) {

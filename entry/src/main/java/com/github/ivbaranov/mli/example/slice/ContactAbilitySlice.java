@@ -24,7 +24,7 @@ public class ContactAbilitySlice extends AbilitySlice {
             "Taneka Tenorio", "Treena Trentham", "Ulrike Uhlman", "Virgina Viau", " Willis Wysocki "
     };
 
-    List<Item> itemList;
+    private List<Item> itemList;
     private ListAdapter listAdapter;
 
     @Override
@@ -44,7 +44,6 @@ public class ContactAbilitySlice extends AbilitySlice {
         }
         listAdapter = new ListAdapter(this, CONTACTS);
         listAdapter.setItem(itemList);
-
         ListContainer listContainer = (ListContainer) findComponentById(ResourceTable.Id_recyclerview);
         listContainer.setItemProvider(listAdapter);
     }

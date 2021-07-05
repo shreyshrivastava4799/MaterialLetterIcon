@@ -1,5 +1,7 @@
 package com.github.ivbaranov.mli.example;
 
+import static java.lang.Math.abs;
+import static org.junit.Assert.*;
 import com.github.ivbaranov.mli.MaterialLetterIcon;
 import ohos.aafwk.ability.delegation.AbilityDelegatorRegistry;
 import ohos.agp.components.Attr;
@@ -9,11 +11,7 @@ import ohos.app.Context;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
 import java.util.Optional;
-
-import static java.lang.Math.abs;
-import static org.junit.Assert.*;
 
 public class MaterialLetterIconTest {
     private Context context;
@@ -79,7 +77,6 @@ public class MaterialLetterIconTest {
     public void testShapeColor() {
         MaterialLetterIcon.Builder builder = new MaterialLetterIcon.Builder(context);
         builder.shapeColor(Color.GREEN);
-
         materialLetterIcon = builder.create();
         assertEquals(Color.GREEN, materialLetterIcon.getShapeColor());
     }
@@ -88,7 +85,6 @@ public class MaterialLetterIconTest {
     public void testShapeType() {
         MaterialLetterIcon.Builder builder = new MaterialLetterIcon.Builder(context);
         builder.shapeType(MaterialLetterIcon.Shape.CIRCLE);
-
         materialLetterIcon = builder.create();
         assertEquals(MaterialLetterIcon.Shape.CIRCLE, materialLetterIcon.getShapeType());
     }
@@ -97,7 +93,6 @@ public class MaterialLetterIconTest {
     public void testBorder() {
         MaterialLetterIcon.Builder builder = new MaterialLetterIcon.Builder(context);
         builder.border(true);
-
         materialLetterIcon = builder.create();
         assertTrue(materialLetterIcon.hasBorder());
     }
@@ -106,7 +101,6 @@ public class MaterialLetterIconTest {
     public void testBorderColor() {
         MaterialLetterIcon.Builder builder = new MaterialLetterIcon.Builder(context);
         builder.borderColor(Color.GREEN);
-
         materialLetterIcon = builder.create();
         assertEquals(Color.GREEN, materialLetterIcon.getBorderColor());
     }
@@ -115,7 +109,6 @@ public class MaterialLetterIconTest {
     public void testBorderSize() {
         MaterialLetterIcon.Builder builder = new MaterialLetterIcon.Builder(context);
         builder.borderSize(10);
-
         materialLetterIcon = builder.create();
         assertEquals(10, materialLetterIcon.getBorderSize());
     }
@@ -124,7 +117,6 @@ public class MaterialLetterIconTest {
     public void testLetter() {
         MaterialLetterIcon.Builder builder = new MaterialLetterIcon.Builder(context);
         builder.letter("M");
-
         materialLetterIcon = builder.create();
         assertEquals("M", materialLetterIcon.getLetter());
     }
@@ -133,7 +125,6 @@ public class MaterialLetterIconTest {
     public void testsetLetter() {
         MaterialLetterIcon.Builder builder = new MaterialLetterIcon.Builder(context);
         materialLetterIcon = builder.create();
-
         materialLetterIcon.setLetter("Material Letter Icon");
         assertEquals("M", materialLetterIcon.getLetter());
     }
@@ -142,7 +133,6 @@ public class MaterialLetterIconTest {
     public void testsetLetterWithNull() {
         MaterialLetterIcon.Builder builder = new MaterialLetterIcon.Builder(context);
         materialLetterIcon = builder.create();
-
         String nullString = null;
         materialLetterIcon.setLetter(nullString);
         assertNull(materialLetterIcon.getLetter());
@@ -152,7 +142,6 @@ public class MaterialLetterIconTest {
     public void testsetLetterWithEmpty() {
         MaterialLetterIcon.Builder builder = new MaterialLetterIcon.Builder(context);
         materialLetterIcon = builder.create();
-
         materialLetterIcon.setLetter("");
         assertNull(materialLetterIcon.getLetter());
     }
@@ -161,7 +150,6 @@ public class MaterialLetterIconTest {
     public void testLetterColor() {
         MaterialLetterIcon.Builder builder = new MaterialLetterIcon.Builder(context);
         builder.letterColor(Color.GREEN);
-
         materialLetterIcon = builder.create();
         assertEquals(Color.GREEN, materialLetterIcon.getLetterColor());
     }
@@ -170,7 +158,6 @@ public class MaterialLetterIconTest {
     public void testLetterSize() {
         MaterialLetterIcon.Builder builder = new MaterialLetterIcon.Builder(context);
         builder.letterSize(10);
-
         materialLetterIcon = builder.create();
         assertEquals(10, materialLetterIcon.getLetterSize());
     }
@@ -179,7 +166,6 @@ public class MaterialLetterIconTest {
     public void testLettersNumber() {
         MaterialLetterIcon.Builder builder = new MaterialLetterIcon.Builder(context);
         builder.lettersNumber(3);
-
         materialLetterIcon = builder.create();
         assertEquals(3, materialLetterIcon.getLettersNumber());
     }
@@ -188,7 +174,6 @@ public class MaterialLetterIconTest {
     public void testInitials() {
         MaterialLetterIcon.Builder builder = new MaterialLetterIcon.Builder(context);
         builder.initials(true);
-
         materialLetterIcon = builder.create();
         assertTrue(materialLetterIcon.isInitials());
     }
@@ -197,7 +182,6 @@ public class MaterialLetterIconTest {
     public void testInitialsNumber() {
         MaterialLetterIcon.Builder builder = new MaterialLetterIcon.Builder(context);
         builder.initialsNumber(3);
-
         materialLetterIcon = builder.create();
         assertEquals(3, materialLetterIcon.getInitialsNumber());
     }
@@ -206,7 +190,6 @@ public class MaterialLetterIconTest {
     public void testRoundRectRx() {
         MaterialLetterIcon.Builder builder = new MaterialLetterIcon.Builder(context);
         builder.roundRectRx(10);
-
         materialLetterIcon = builder.create();
         assertTrue(abs(10 - materialLetterIcon.getRoundRectRx()) < 0.1);
     }
@@ -215,7 +198,6 @@ public class MaterialLetterIconTest {
     public void testRoundRectRy() {
         MaterialLetterIcon.Builder builder = new MaterialLetterIcon.Builder(context);
         builder.roundRectRy(10);
-
         materialLetterIcon = builder.create();
         assertTrue(abs(10 - materialLetterIcon.getRoundRectRy()) < 0.1);
     }

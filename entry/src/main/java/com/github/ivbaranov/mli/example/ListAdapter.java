@@ -1,10 +1,13 @@
 package com.github.ivbaranov.mli.example;
 
 import com.github.ivbaranov.mli.MaterialLetterIcon;
-import ohos.agp.components.*;
+import ohos.agp.components.BaseItemProvider;
+import ohos.agp.components.Component;
+import ohos.agp.components.ComponentContainer;
+import ohos.agp.components.LayoutScatter;
+import ohos.agp.components.Text;
 import ohos.agp.utils.Color;
 import ohos.app.Context;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +15,6 @@ import java.util.List;
  * ListAdapter.
  */
 public class ListAdapter extends BaseItemProvider {
-
     private static final int CONTACTS = 1;
     private static final int COUNTRIES = 0;
 
@@ -24,9 +26,9 @@ public class ListAdapter extends BaseItemProvider {
     private Color colors[] = {Color.BLUE, Color.CYAN, Color.GREEN, Color.MAGENTA, Color.YELLOW};
 
     /**
-     * PeopleAdapter.
+     * ItemAdapter.
      *
-     * @param context
+     * @param context context
      * @param type of list (CONTACTS, COUNTRIES)
      */
     public ListAdapter(Context context, int type) {
@@ -81,13 +83,12 @@ public class ListAdapter extends BaseItemProvider {
 
 
     /**
-     * PersonClickListener.
+     * ItemClickListener.
      *
-     * @since 2020-08-25
      */
     public interface ItemClickListener {
         /**
-         * onPersonClick.
+         * onItemClick.
          *
          * @param position position
          */
@@ -105,12 +106,12 @@ public class ListAdapter extends BaseItemProvider {
     }
 
     /**
-     * gets person.
+     * gets item.
      *
      * @param position position
-     * @return person
+     * @return item name
      */
-    public Item getPerson(int position) {
+    public Item getItemName(int position) {
         return itemList.get(position);
     }
 

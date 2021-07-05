@@ -5,8 +5,7 @@ import com.github.ivbaranov.mli.example.ListAdapter;
 import com.github.ivbaranov.mli.example.ResourceTable;
 import ohos.aafwk.ability.AbilitySlice;
 import ohos.aafwk.content.Intent;
-import ohos.agp.components.*;
-
+import ohos.agp.components.ListContainer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +21,7 @@ public class CountryAbilitySlice extends AbilitySlice {
             "Norway", "Panama", "Portugal", "Romania", "Russia", "Slovakia", "Vatican", "Zimbabwe"
     };
 
-    List<Item> itemList;
+    private List<Item> itemList;
     private ListAdapter listAdapter;
 
     @Override
@@ -43,7 +42,6 @@ public class CountryAbilitySlice extends AbilitySlice {
 
         listAdapter = new ListAdapter(this, COUNTRIES);
         listAdapter.setItem(itemList);
-
         ListContainer listContainer = (ListContainer) findComponentById(ResourceTable.Id_recyclerview);
         listContainer.setItemProvider(listAdapter);
     }
