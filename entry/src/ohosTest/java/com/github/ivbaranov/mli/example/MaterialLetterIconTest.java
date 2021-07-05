@@ -123,10 +123,38 @@ public class MaterialLetterIconTest {
     @Test
     public void testLetter() {
         MaterialLetterIcon.Builder builder = new MaterialLetterIcon.Builder(context);
-        builder.letter("Material Letter Icon");
+        builder.letter("M");
 
         materialLetterIcon = builder.create();
-        assertEquals("Material Letter Icon", materialLetterIcon.getLetter());
+        assertEquals("M", materialLetterIcon.getLetter());
+    }
+
+    @Test
+    public void testsetLetter() {
+        MaterialLetterIcon.Builder builder = new MaterialLetterIcon.Builder(context);
+        materialLetterIcon = builder.create();
+
+        materialLetterIcon.setLetter("Material Letter Icon");
+        assertEquals("M", materialLetterIcon.getLetter());
+    }
+
+    @Test
+    public void testsetLetterWithNull() {
+        MaterialLetterIcon.Builder builder = new MaterialLetterIcon.Builder(context);
+        materialLetterIcon = builder.create();
+
+        String nullString = null;
+        materialLetterIcon.setLetter(nullString);
+        assertNull(materialLetterIcon.getLetter());
+    }
+
+    @Test
+    public void testsetLetterWithEmpty() {
+        MaterialLetterIcon.Builder builder = new MaterialLetterIcon.Builder(context);
+        materialLetterIcon = builder.create();
+
+        materialLetterIcon.setLetter("");
+        assertNull(materialLetterIcon.getLetter());
     }
 
     @Test
@@ -153,7 +181,7 @@ public class MaterialLetterIconTest {
         builder.lettersNumber(3);
 
         materialLetterIcon = builder.create();
-        assertEquals(3, materialLetterIcon.getLetterSize());
+        assertEquals(3, materialLetterIcon.getLettersNumber());
     }
 
     @Test

@@ -9,44 +9,63 @@ import ohos.agp.render.Path;
 import ohos.agp.text.Font;
 import ohos.agp.utils.Color;
 import ohos.agp.utils.RectFloat;
+import ohos.agp.utils.Rect;
 import ohos.app.Context;
 import ohos.global.resource.RawFileEntry;
 import ohos.global.resource.Resource;
-import ohos.agp.utils.Rect;
-import ohos.hiviewdfx.HiLog;
-import ohos.hiviewdfx.HiLogLabel;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-public class MaterialLetterIcon extends Component implements Component.DrawTask{
-    @Deprecated public final static int SHAPE_CIRCLE = 0;
-    @Deprecated public final static int SHAPE_RECT = 1;
-    @Deprecated public final static int SHAPE_ROUND_RECT = 2;
-    @Deprecated public final static int SHAPE_TRIANGLE = 3;
+/**
+ * MaterialLetterIcon.
+ */
+public class MaterialLetterIcon extends Component implements Component.DrawTask {
+    @Deprecated public static final int SHAPE_CIRCLE = 0;
+    @Deprecated public static final int SHAPE_RECT = 1;
+    @Deprecated public static final int SHAPE_ROUND_RECT = 2;
+    @Deprecated public static final int SHAPE_TRIANGLE = 3;
 
-    public enum Shape {CIRCLE, RECT, ROUND_RECT, TRIANGLE}
+    /**
+     * Shape of icon.
+     */
+    public enum Shape { CIRCLE, RECT, ROUND_RECT, TRIANGLE }
 
-    private static Rect textBounds = new Rect();
+    private static final Shape DEFAULT_SHAPE = Shape.CIRCLE;
+    private static final Color DEFAULT_SHAPE_COLOR = Color.BLACK;
 
-    private final static Shape DEFAULT_SHAPE = Shape.CIRCLE;
-    private final static Color DEFAULT_SHAPE_COLOR = Color.BLACK;
+    private static final int DEFAULT_BORDER_SIZE = 2;
+    private static final boolean DEFAULT_BORDER = false;
+    private static final Color DEFAULT_BORDER_COLOR = Color.BLACK;
 
-    private final static int DEFAULT_BORDER_SIZE = 2;
-    private final static boolean DEFAULT_BORDER = false;
-    private final static Color DEFAULT_BORDER_COLOR = Color.BLACK;
+    private static final int DEFAULT_LETTER_SIZE = 26;
+    private static final int DEFAULT_LETTERS_NUMBER = 1;
+    private static final Color DEFAULT_LETTER_COLOR = Color.WHITE;
 
-    private final static int DEFAULT_LETTER_SIZE = 26;
-    private final static int DEFAULT_LETTERS_NUMBER = 1;
-    private final static Color DEFAULT_LETTER_COLOR = Color.WHITE;
+    private static final String DEFAULT_FONT_PATH = "resources/rawfile/fonts/Roboto-Light.ttf";
 
-    private final static String DEFAULT_FONT_PATH = "resources/rawfile/fonts/Roboto-Light.ttf";
+    private static final int DEFAULT_INITIALS_NUMBER = 2;
+    private static final boolean DEFAULT_INITIALS_STATE = false;
 
-    private final static int DEFAULT_INITIALS_NUMBER = 2;
-    private final static boolean DEFAULT_INITIALS_STATE = false;
+    private static final float DEFAULT_ROUND_RECT_RADIUS = 2;
 
-    private final static float DEFAULT_ROUND_RECT_RADIUS = 2;
+    private static final String MLI_BORDER = "mli_border";
+    private static final String MLI_BORDER_COLOR = "mli_border_color";
+    private static final String MLI_BORDER_SIZE = "mli_border_size";
+    private static final String MLI_INITIALS = "mli_initials";
+    private static final String MLI_INITIALS_NUMBER = "mli_initials_number";
+    private static final String MLI_SHAPE_COLOR = "mli_shape_color";
+    private static final String MLI_SHAPE_TYPE = "mli_shape_type";
+    private static final String MLI_LETTER_SIZE = "mli_letter_size";
+    private static final String MLI_LETTER_COLOR = "mli_letter_color";
+    private static final String MLI_LETTERS_NUMBER = "mli_letters_number";
+    private static final String MLI_ROUND_RECT_RX = "mli_round_rect_rx";
+    private static final String MLI_ROUND_RECT_RY = "mli_round_rect_ry";
+    private static final String MLI_LETTER = "mli_letter";
+
+
+
+
 
     private Context context;
     private Paint mShapePaint;
@@ -88,7 +107,7 @@ public class MaterialLetterIcon extends Component implements Component.DrawTask{
     }
 
     /**
-     * Initialize the default values
+     * Initialize the default values.
      * <ul>
      * <li>shape color = black</li>
      * <li>border = false</li>
@@ -138,7 +157,7 @@ public class MaterialLetterIcon extends Component implements Component.DrawTask{
         mLetterPaint.setFont(getFont(DEFAULT_FONT_PATH));
 
         if (attrs != null) {
-            initAttributes(context, attrs);
+            initAttributes(attrs);
         }
 
         addDrawTask(this::onDraw);
@@ -150,9 +169,8 @@ public class MaterialLetterIcon extends Component implements Component.DrawTask{
         FileOutputStream fileOutputStream = null;
         File file = new File(context.getCacheDir(), fontfamily);
         RawFileEntry rawFileEntry = context.getResourceManager().getRawFileEntry(fontfamily);
-        try {
-            Resource resource = rawFileEntry.openRawFile();
-            buffer = new byte[(int)rawFileEntry.openRawFileDescriptor().getFileSize()];
+        try (Resource resource = rawFileEntry.openRawFile()) {
+            buffer = new byte[(int) rawFileEntry.openRawFileDescriptor().getFileSize()];
             bytesRead = resource.read(buffer);
             fileOutputStream = new FileOutputStream(file);
             fileOutputStream.write(buffer, 0, bytesRead);
@@ -163,65 +181,77 @@ public class MaterialLetterIcon extends Component implements Component.DrawTask{
         return new Font.Builder(file).build();
     }
 
+    private void checkBorderAttr(AttrSet attrs) {
+        if (attrs.getAttr(MLI_BORDER).isPresent() && attrs.getAttr(MLI_BORDER).get() != null) {
+            mBorder = attrs.getAttr(MLI_BORDER).get().getBoolValue();
+        }
 
-    private void initAttributes(Context context, AttrSet attrs) {
+        if (attrs.getAttr(MLI_BORDER_COLOR).isPresent() && attrs.getAttr(MLI_BORDER_COLOR).get() != null) {
+            mBorderColor = attrs.getAttr(MLI_BORDER_COLOR).get().getColorValue();
+        }
+
+        if (attrs.getAttr(MLI_BORDER_SIZE).isPresent() && attrs.getAttr(MLI_BORDER_SIZE).get() != null) {
+            mBorderSize = attrs.getAttr(MLI_BORDER_SIZE).get().getIntegerValue();
+        }
+    }
+
+    private void checkInitialAttr(AttrSet attrs) {
+        if (attrs.getAttr(MLI_INITIALS).isPresent() && attrs.getAttr(MLI_INITIALS).get() != null) {
+            mInitials = attrs.getAttr(MLI_INITIALS).get().getBoolValue();
+        }
+
+        if (attrs.getAttr(MLI_INITIALS_NUMBER).isPresent() && attrs.getAttr(MLI_INITIALS_NUMBER).get() != null) {
+            mInitialsNumber = attrs.getAttr(MLI_INITIALS_NUMBER).get().getIntegerValue();
+        }
+    }
+
+    private void checkShapeAttr(AttrSet attrs) {
+        if (attrs.getAttr(MLI_SHAPE_COLOR).isPresent() && attrs.getAttr(MLI_SHAPE_COLOR).get() != null) {
+            mShapeColor = attrs.getAttr(MLI_SHAPE_COLOR).get().getColorValue();
+        }
+
+        if (attrs.getAttr(MLI_SHAPE_TYPE).isPresent() && attrs.getAttr(MLI_SHAPE_TYPE).get() != null) {
+            mShapeType = Shape.values()[attrs.getAttr(MLI_SHAPE_TYPE).get().getIntegerValue()];
+        }
+    }
+
+    private void checkLetterAttr(AttrSet attrs) {
+        if (attrs.getAttr(MLI_LETTER_SIZE).isPresent() && attrs.getAttr(MLI_LETTER_SIZE).get() != null) {
+            mLetterSize = attrs.getAttr(MLI_LETTER_SIZE).get().getIntegerValue();
+        }
+        if (attrs.getAttr(MLI_LETTER_COLOR).isPresent() && attrs.getAttr(MLI_LETTER_COLOR).get() != null) {
+            mLetterColor = attrs.getAttr(MLI_LETTER_COLOR).get().getColorValue();
+        }
+        if (attrs.getAttr(MLI_LETTERS_NUMBER).isPresent() && attrs.getAttr(MLI_LETTERS_NUMBER).get() != null) {
+            mLettersNumber = attrs.getAttr(MLI_LETTERS_NUMBER).get().getIntegerValue();
+        }
+
+        if (attrs.getAttr(MLI_LETTER).isPresent() && attrs.getAttr(MLI_LETTER).get() != null) {
+            mOriginalLetter = attrs.getAttr(MLI_LETTER).get().getStringValue();
+            if (mOriginalLetter != null) {
+                setLetter(mOriginalLetter);
+            }
+        }
+    }
+
+    private void checkIconAttr(AttrSet attrs) {
+        if (attrs.getAttr(MLI_ROUND_RECT_RX).isPresent() && attrs.getAttr(MLI_ROUND_RECT_RX).get() != null) {
+            mRoundRectRx = attrs.getAttr(MLI_ROUND_RECT_RX).get().getFloatValue();
+        }
+        if (attrs.getAttr(MLI_ROUND_RECT_RY).isPresent() && attrs.getAttr(MLI_ROUND_RECT_RY).get() != null) {
+            mRoundRectRy = attrs.getAttr(MLI_ROUND_RECT_RY).get().getFloatValue();
+        }
+    }
+
+
+    private void initAttributes(AttrSet attrs) {
 
         if (attrs != null) {
-            try {
-                if (attrs.getAttr("mli_border").isPresent() && attrs.getAttr("mli_border").get() !=null) {
-                    mBorder = attrs.getAttr("mli_border").get().getBoolValue();
-                }
-
-                if (attrs.getAttr("mli_border_color").isPresent() && attrs.getAttr("mli_border_color").get() !=null) {
-                    mBorderColor = attrs.getAttr("mli_border_color").get().getColorValue();
-                }
-
-                if (attrs.getAttr("mli_border_size").isPresent() && attrs.getAttr("mli_border_size").get() != null) {
-                    mBorderSize = attrs.getAttr("mli_border_size").get().getIntegerValue();
-                }
-
-                if (attrs.getAttr("mli_initials").isPresent() && attrs.getAttr("mli_initials").get() != null) {
-                    mInitials = attrs.getAttr("mli_initials").get().getBoolValue();
-                }
-
-                if (attrs.getAttr("mli_initials_number").isPresent() && attrs.getAttr("mli_initials_number").get() != null) {
-                    mInitialsNumber = attrs.getAttr("mli_initials_number").get().getIntegerValue();
-                }
-
-                if (attrs.getAttr("mli_shape_color").isPresent() && attrs.getAttr("mli_shape_color").get() != null) {
-                    mShapeColor = attrs.getAttr("mli_shape_color").get().getColorValue();
-                }
-
-                if (attrs.getAttr("mli_shape_type").isPresent() && attrs.getAttr("mli_shape_type").get() != null) {
-                    mShapeType = Shape.values()[attrs.getAttr("mli_shape_type").get().getIntegerValue()];
-                }
-
-                if (attrs.getAttr("mli_letter_size").isPresent() && attrs.getAttr("mli_letter_size").get() != null) {
-                    mLetterSize = attrs.getAttr("mli_letter_size").get().getIntegerValue();
-                }
-                if (attrs.getAttr("mli_letter_color").isPresent() && attrs.getAttr("mli_letter_color").get() != null) {
-                    mLetterColor = attrs.getAttr("mli_letter_color").get().getColorValue();
-                }
-                if (attrs.getAttr("mli_letters_number").isPresent() && attrs.getAttr("mli_letters_number").get() != null) {
-                    mLettersNumber = attrs.getAttr("mli_letters_number").get().getIntegerValue();
-                }
-
-                if (attrs.getAttr("mli_round_rect_rx").isPresent() && attrs.getAttr("mli_round_rect_rx").get() != null) {
-                    mRoundRectRx = attrs.getAttr("mli_round_rect_rx").get().getFloatValue();
-                }
-                if (attrs.getAttr("mli_round_rect_ry").isPresent() && attrs.getAttr("mli_round_rect_ry").get() != null) {
-                    mRoundRectRy = attrs.getAttr("mli_round_rect_ry").get().getFloatValue();
-                }
-
-                if (attrs.getAttr("mli_letter").isPresent() && attrs.getAttr("mli_letter").get() != null) {
-                    mOriginalLetter = attrs.getAttr("mli_letter").get().getStringValue();
-                    if (mOriginalLetter != null) {
-                        setLetter(mOriginalLetter);
-                    }
-                }
-            }
-            finally {
-            }
+            checkIconAttr(attrs);
+            checkShapeAttr(attrs);
+            checkLetterAttr(attrs);
+            checkBorderAttr(attrs);
+            checkInitialAttr(attrs);
         }
     }
 
@@ -249,6 +279,9 @@ public class MaterialLetterIcon extends Component implements Component.DrawTask{
                 break;
             case TRIANGLE:
                 drawTriangle(canvas);
+                break;
+            default:
+                drawCircle(canvas, radius, viewWidthHalf, viewHeightHalf);
                 break;
         }
         if (mLetter != null) {
@@ -317,12 +350,7 @@ public class MaterialLetterIcon extends Component implements Component.DrawTask{
     private void drawLetter(Canvas canvas, float cx, float cy) {
         mLetterPaint.setColor(mLetterColor);
         mLetterPaint.setTextSize(AttrHelper.fp2px(mLetterSize, context));
-
-        if (mInitials) {
-            textBounds = mLetterPaint.getTextBounds(mLetter);
-        } else {
-            textBounds = mLetterPaint.getTextBounds(mLetter);
-        }
+        Rect textBounds = mLetterPaint.getTextBounds(mLetter);
         canvas.drawText(mLetterPaint, mLetter, cx - textBounds.getPreciseHorizontalCenter(), cy - textBounds.getPreciseVerticalCenter());
     }
 
@@ -591,7 +619,6 @@ public class MaterialLetterIcon extends Component implements Component.DrawTask{
 
         public Builder(Context context) {
             this.context = context;
-//            this.mLetterTypeface = Typeface.createFromAsset(context.getAssets(), DEFAULT_FONT_PATH);
             this.mLetterTypeface = getFont(DEFAULT_FONT_PATH);
         }
 
@@ -601,9 +628,8 @@ public class MaterialLetterIcon extends Component implements Component.DrawTask{
             FileOutputStream fileOutputStream = null;
             File file = new File(context.getCacheDir(), fontfamily);
             RawFileEntry rawFileEntry = context.getResourceManager().getRawFileEntry(fontfamily);
-            try {
-                Resource resource = rawFileEntry.openRawFile();
-                buffer = new byte[(int)rawFileEntry.openRawFileDescriptor().getFileSize()];
+            try (Resource resource = rawFileEntry.openRawFile()) {
+                buffer = new byte[(int) rawFileEntry.openRawFileDescriptor().getFileSize()];
                 bytesRead = resource.read(buffer);
                 fileOutputStream = new FileOutputStream(file);
                 fileOutputStream.write(buffer, 0, bytesRead);
@@ -690,6 +716,11 @@ public class MaterialLetterIcon extends Component implements Component.DrawTask{
             return this;
         }
 
+        /**
+         * Returns MaterialLetterIcon object based on params set by Builder.
+         *
+         * @return MaterialLetterIcon.
+         */
         public MaterialLetterIcon create() {
             MaterialLetterIcon icon = new MaterialLetterIcon(context);
             icon.setShapeColor(mShapeColor);

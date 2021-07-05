@@ -10,6 +10,9 @@ import ohos.agp.components.Image;
 import com.github.ivbaranov.mli.example.ResourceTable;
 
 
+/**
+ * MainAbilitySlice.
+ */
 public class MainAbilitySlice extends AbilitySlice {
     Image image;
     Button buttonContacts;
@@ -22,24 +25,24 @@ public class MainAbilitySlice extends AbilitySlice {
         super.setUIContent(ResourceTable.Layout_ability_main);
 
         image = (Image) findComponentById(ResourceTable.Id_image_main);
-//        animatorProperty = image.createAnimatorProperty();
-//        animatorProperty.setDuration(5000).alpha(0).rotate(360).setLoopedCount(-1).setCurveType(Animator.CurveType.ACCELERATE);
-//        image.setBindStateChangedListener(new Component.BindStateChangedListener() {
-//            @Override
-//            public void onComponentBoundToWindow(Component component) {
-//                animatorProperty.start();
-//            }
-//
-//            @Override
-//            public void onComponentUnboundFromWindow(Component component) {
-//                animatorProperty.stop();
-//            }
-//        });
+        animatorProperty = image.createAnimatorProperty();
+        animatorProperty.setDuration(5000).alpha(0).rotate(360).setLoopedCount(-1).setCurveType(Animator.CurveType.ACCELERATE);
+        image.setBindStateChangedListener(new Component.BindStateChangedListener() {
+            @Override
+            public void onComponentBoundToWindow(Component component) {
+                animatorProperty.start();
+            }
 
-        buttonContacts = (Button)findComponentById(ResourceTable.Id_button_main_contacts);
-        buttonContacts.setClickedListener(component -> present(new PersonAbilitySlice(), new Intent()));
+            @Override
+            public void onComponentUnboundFromWindow(Component component) {
+                animatorProperty.stop();
+            }
+        });
 
-        buttonCountries = (Button)findComponentById(ResourceTable.Id_button_main_countries);
+        buttonContacts = (Button) findComponentById(ResourceTable.Id_button_main_contacts);
+        buttonContacts.setClickedListener(component -> present(new ContactAbilitySlice(), new Intent()));
+
+        buttonCountries = (Button) findComponentById(ResourceTable.Id_button_main_countries);
         buttonCountries.setClickedListener(component -> present(new CountryAbilitySlice(), new Intent()));
     }
 

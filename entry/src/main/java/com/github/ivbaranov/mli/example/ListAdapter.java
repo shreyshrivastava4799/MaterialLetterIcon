@@ -4,48 +4,45 @@ import com.github.ivbaranov.mli.MaterialLetterIcon;
 import ohos.agp.components.*;
 import ohos.agp.utils.Color;
 import ohos.app.Context;
-import ohos.hiviewdfx.HiLog;
-import ohos.hiviewdfx.HiLogLabel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PersonAdapter extends BaseItemProvider {
-    private static final int PERSON_ID = 99;
+/**
+ * ListAdapter.
+ */
+public class ListAdapter extends BaseItemProvider {
 
-    private static final int TEXT_SIZE = 40;
+    private static final int CONTACTS = 1;
+    private static final int COUNTRIES = 0;
 
+    private int mType;
     private Context context;
+    private List<Item> itemList;
+    private ItemClickListener clickListener;
 
-    private PersonClickListener clickListener;
-
-    private TextField mName;
-    private MaterialLetterIcon mIcon;
-
-    private List<Person> personList;
     private Color colors[] = {Color.BLUE, Color.CYAN, Color.GREEN, Color.MAGENTA, Color.YELLOW};
 
-    static final HiLogLabel label = new HiLogLabel(HiLog.LOG_APP, 0x00201, "MY_TAG_PA");
-
     /**
-     * PeopleAdapter
+     * PeopleAdapter.
      *
      * @param context
-     *
+     * @param type of list (CONTACTS, COUNTRIES)
      */
-    public PersonAdapter(Context context) {
+    public ListAdapter(Context context, int type) {
         this.context = context;
-        this.personList = new ArrayList<>();
+        this.itemList = new ArrayList<>();
+        this.mType = type;
     }
 
     @Override
     public int getCount() {
-        return personList.size();
+        return itemList.size();
     }
 
     @Override
     public Object getItem(int index) {
-        return personList.get(index);
+        return itemList.get(index);
     }
 
     @Override
@@ -60,58 +57,70 @@ public class PersonAdapter extends BaseItemProvider {
             component = LayoutScatter.getInstance(context).parse(ResourceTable.Layout_list_item, null, false);
             viewHolder = new ViewHolder(component);
             component.setTag(viewHolder);
-        }
-        else {
+        } else {
             viewHolder = (ViewHolder) component.getTag();
         }
 
-        viewHolder.placeName.setText(personList.get(index).getName());
-        viewHolder.placeIcon.setLetter(personList.get(index).getName());
-        viewHolder.placeIcon.setLettersNumber(3);
-        viewHolder.placeIcon.setShapeColor(colors[index%5]);
 
+        switch (mType) {
+            case COUNTRIES:
+                viewHolder.placeIcon.setLettersNumber(3);
+                break;
+            case CONTACTS:
+                viewHolder.placeIcon.setLettersNumber(1);
+                break;
+            default:
+                viewHolder.placeIcon.setLettersNumber(1);
+        }
+        viewHolder.placeIcon.setShapeColor(colors[index % 5]);
+        viewHolder.placeName.setText(itemList.get(index).getName());
+        viewHolder.placeIcon.setLetter(itemList.get(index).getName());
         return component;
     }
 
 
 
     /**
-     * PersonClickListener
+     * PersonClickListener.
      *
      * @since 2020-08-25
      */
-    public interface PersonClickListener {
+    public interface ItemClickListener {
         /**
-         * onPersonClick
+         * onPersonClick.
          *
          * @param position position
          */
-        void onPersonClick(int position);
+        void onItemClick(int position);
     }
 
     /**
-     * setPeople
+     * setItem.
      *
-     * @param people people
+     * @param itemList itemList
      */
-    public void setPeople(List<Person> people) {
-        personList = people;
+    public void setItem(List<Item> itemList) {
+        this.itemList = itemList;
         notifyDataChanged();
     }
 
     /**
-     * gets person
+     * gets person.
      *
      * @param position position
      * @return person
      */
-    public Person getPerson(int position) {
-        return personList.get(position);
+    public Item getPerson(int position) {
+        return itemList.get(position);
     }
 
+    /**
+     * ViewHolder.
+     */
     public static class ViewHolder {
         Text placeName;
         MaterialLetterIcon placeIcon;
+
         public ViewHolder(Component component) {
             placeName = (Text) component.findComponentById(ResourceTable.Id_text);
             placeIcon = (MaterialLetterIcon) component.findComponentById(ResourceTable.Id_icon);

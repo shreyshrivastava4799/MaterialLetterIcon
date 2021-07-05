@@ -1,9 +1,9 @@
 package com.github.ivbaranov.mli.example;
 
-public class Person {
+public class Item {
     String name;
 
-    public Person() {
+    public Item() {
     }
 
     public String getName() {return name;}

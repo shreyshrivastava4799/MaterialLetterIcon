@@ -5,21 +5,23 @@ import com.github.ivbaranov.mli.example.ListAdapter;
 import com.github.ivbaranov.mli.example.ResourceTable;
 import ohos.aafwk.ability.AbilitySlice;
 import ohos.aafwk.content.Intent;
-import ohos.agp.components.*;
-
+import ohos.agp.components.ListContainer;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * AbilitySlice for Countries.
- */
-public class CountryAbilitySlice extends AbilitySlice {
 
-    private static final int COUNTRIES = 0;
-    private static final String[] countries = {
-            "Albania", "Australia", "Belgium", "Canada", "China", "Dominica", "Egypt", "Estonia",
-            "Finland", "France", "Germany", "Honduras", "Italy", "Japan", "Madagascar", "Netherlands",
-            "Norway", "Panama", "Portugal", "Romania", "Russia", "Slovakia", "Vatican", "Zimbabwe"
+/**
+ * AbilitySlice for Contacts.
+ */
+public class ContactAbilitySlice extends AbilitySlice {
+
+    private static final int CONTACTS = 1;
+    private static final String[] contacts = {
+            "Alane Avey", "Belen Brewster", "Brandon Brochu", "Carli Carrol", "Della Delrio",
+            "Esther Echavarria", "Etha Edinger", "Felipe Flecha", "Ilse Island", "Kecia Keltz",
+            "Lourie Lucas", "Lucille Leachman", "Mandi Mcqueeney", "Murray Matchett", "Nadia Nero",
+            "Nannie Nipp", "Ozella Otis", "Pauletta Poehler", "Roderick Rippy", "Sherril Sager",
+            "Taneka Tenorio", "Treena Trentham", "Ulrike Uhlman", "Virgina Viau", " Willis Wysocki "
     };
 
     List<Item> itemList;
@@ -35,13 +37,12 @@ public class CountryAbilitySlice extends AbilitySlice {
 
     private void initView() {
         itemList = new ArrayList<>();
-        for (String personName : countries) {
+        for (String personName : contacts) {
             Item item = new Item();
             item.setName(personName);
             itemList.add(item);
         }
-
-        listAdapter = new ListAdapter(this, COUNTRIES);
+        listAdapter = new ListAdapter(this, CONTACTS);
         listAdapter.setItem(itemList);
 
         ListContainer listContainer = (ListContainer) findComponentById(ResourceTable.Id_recyclerview);

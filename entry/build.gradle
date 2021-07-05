@@ -1,5 +1,7 @@
 apply plugin: 'com.huawei.ohos.hap'
 apply plugin: 'com.huawei.ohos.decctest'
+apply plugin: 'org.sonarqube'
+
 ohos {
     compileSdkVersion 5
     defaultConfig {
@@ -16,8 +18,20 @@ ohos {
     
 }
 
+sonarqube {
+    properties {
+        property "sonar.projectName", "MaterialLetterIcon"
+        property "sonar.projectKey", "MaterialLetterIcon"
+        property "sonar.host.url", "http://localhost:9000"
+        property "sonar.language", "java"
+        property "sonar.sources", "src/main/"
+        property "sonar.login", "d2bc1d3b6e03c0c5a617e4f27b09dcb9c79d7c39"
+    }
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar', '*.har'])
+
     testImplementation 'junit:junit:4.13'
     ohosTestImplementation 'com.huawei.ohos.testkit:runner:1.0.0.100'
 
