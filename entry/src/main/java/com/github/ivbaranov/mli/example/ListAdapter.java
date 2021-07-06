@@ -1,6 +1,21 @@
+/*
+ * Copyright (C) 2020-21 Application Library Engineering Group
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.github.ivbaranov.mli.example;
 
-import com.github.ivbaranov.mli.MaterialLetterIcon;
 import ohos.agp.components.BaseItemProvider;
 import ohos.agp.components.Component;
 import ohos.agp.components.ComponentContainer;
@@ -8,6 +23,7 @@ import ohos.agp.components.LayoutScatter;
 import ohos.agp.components.Text;
 import ohos.agp.utils.Color;
 import ohos.app.Context;
+import com.github.ivbaranov.mli.MaterialLetterIcon;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,13 +33,15 @@ import java.util.List;
 public class ListAdapter extends BaseItemProvider {
     private static final int CONTACTS = 1;
     private static final int COUNTRIES = 0;
+    private static final int DEFAULT_LETTERS_NUMBER = 1;
+    private static final int CONTACTS_LETTERS_NUMBER = 1;
+    private static final int COUNTRIES_LETTERS_NUMBER = 3;
 
     private int mType;
     private Context context;
     private List<Item> itemList;
     private ItemClickListener clickListener;
-
-    private Color colors[] = {Color.BLUE, Color.CYAN, Color.GREEN, Color.MAGENTA, Color.YELLOW};
+    private Color colors[] = {Color.BLUE, Color.CYAN, Color.GREEN, Color.MAGENTA, Color.GRAY};
 
     /**
      * ItemAdapter.
@@ -62,25 +80,21 @@ public class ListAdapter extends BaseItemProvider {
         } else {
             viewHolder = (ViewHolder) component.getTag();
         }
-
-
         switch (mType) {
             case COUNTRIES:
-                viewHolder.placeIcon.setLettersNumber(3);
+                viewHolder.placeIcon.setLettersNumber(COUNTRIES_LETTERS_NUMBER);
                 break;
             case CONTACTS:
-                viewHolder.placeIcon.setLettersNumber(1);
+                viewHolder.placeIcon.setLettersNumber(CONTACTS_LETTERS_NUMBER);
                 break;
             default:
-                viewHolder.placeIcon.setLettersNumber(1);
+                viewHolder.placeIcon.setLettersNumber(DEFAULT_LETTERS_NUMBER);
         }
-        viewHolder.placeIcon.setShapeColor(colors[index % 5]);
+        viewHolder.placeIcon.setShapeColor(colors[index % colors.length]);
         viewHolder.placeName.setText(itemList.get(index).getName());
         viewHolder.placeIcon.setLetter(itemList.get(index).getName());
         return component;
     }
-
-
 
     /**
      * ItemClickListener.

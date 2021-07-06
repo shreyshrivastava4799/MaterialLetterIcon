@@ -8,8 +8,8 @@ import ohos.agp.render.Paint;
 import ohos.agp.render.Path;
 import ohos.agp.text.Font;
 import ohos.agp.utils.Color;
-import ohos.agp.utils.RectFloat;
 import ohos.agp.utils.Rect;
+import ohos.agp.utils.RectFloat;
 import ohos.app.Context;
 import ohos.global.resource.RawFileEntry;
 import ohos.global.resource.Resource;
@@ -186,7 +186,8 @@ public class MaterialLetterIcon extends Component implements Component.DrawTask 
             this.mLetter = String.valueOf(string.replaceAll("\\s+", ""));
             desireLength = mLettersNumber;
         }
-        this.mLetter = mLetter.substring(0, desireLength > mLetter.length() ? mLetter.length() : desireLength).toUpperCase();
+        int stringLength =  desireLength > mLetter.length() ? mLetter.length() : desireLength;
+        this.mLetter = mLetter.substring(0, stringLength).toUpperCase();
         invalidate();
     }
 
@@ -377,7 +378,6 @@ public class MaterialLetterIcon extends Component implements Component.DrawTask 
             return new Font.Builder(file).build();
         }
 
-
         public Builder shapeColor(Color color) {
             this.mShapeColor = color;
             return this;
@@ -474,7 +474,6 @@ public class MaterialLetterIcon extends Component implements Component.DrawTask 
             icon.setInitialsNumber(mInitialsNumber);
             icon.setRoundRectRx(mRoundRectRx);
             icon.setRoundRectRy(mRoundRectRy);
-
             return icon;
         }
     }
