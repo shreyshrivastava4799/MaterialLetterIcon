@@ -1,8 +1,6 @@
 
 <
 build.gradle,f\0\f07866736216be0ee2aba49e392191aeae700a35
-B
-entry/build.gradle,a\d\ad38b2dea33752cac233aa09d7dfbe582e9dded6
 ƒ
 Sentry/src/main/java/com/github/ivbaranov/mli/example/slice/ContactAbilitySlice.java,5\9\594bd0b7993c58df6ee244cfbd8f1e01edd2add1
 ƒ

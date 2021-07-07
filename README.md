@@ -1,9 +1,9 @@
 # MaterialLetterIcon
 Material letter icon replicates contacts icon view with options for several shapes, backgrounds, fonts and sizes.
 
-![Countries](image/countries.png)
+![Countries](images/countries.png)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-![Contacts](image/contacts.png)
+![Contacts](images/contacts.png)
 
 ## Source
 The code in this repository was inspired from [IvBaranov/MaterialLetterIcon - Release 0.2.4](https://github.com/IvBaranov/MaterialLetterIcon). 
