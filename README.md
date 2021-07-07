@@ -9,8 +9,19 @@ Material letter icon replicates contacts icon view with options for several shap
 The code in this repository was inspired from [IvBaranov/MaterialLetterIcon - Release 0.2.4](https://github.com/IvBaranov/MaterialLetterIcon). 
 We are very thankful to Ivan Baranov. 
 
+## Features
+1. Shape Color: It can be used to change the color of the icon.
+2. Shape Type: It can be used to change the shape of the icon.
+3. Letter: It can be used to set the letters to be shown on the icon.
+4. Letter Color: It can be used to set the color of the letters on the icon.
+5. Letter Size: It can be used to set the size of letters on the icon.
+6. Letters Number: It can be used to set the number of letters on the icon.
+7. Letter Typeface: It can be used to set the font type of letters on the icon.
+8. Initials: It can be used to extract `letters number` of letters of each word in `letter` to be shown on the icon.
+9. Initials Number: It can be used to set the number of initials to be shown.
+
 ## Dependency
-1.For using MaterialLetterIcon module in sample app, include the source code and add the below dependencies in entry/build.gradle to generate hap/support.har.
+1. For using MaterialLetterIcon module in sample app, include the source code and add the below dependencies in entry/build.gradle to generate hap/support.har.
 ```
 	dependencies {
 		implementation project(':materiallettericon')
@@ -18,7 +29,7 @@ We are very thankful to Ivan Baranov.
         	testCompile 'junit:junit:4.12'
 	}
 ```
-2.For using MaterialLetterIcon in separate application using har file, add the har file in the entry/libs folder and add the dependencies in entry/build.gradle file.
+2. For using MaterialLetterIcon in separate application using har file, add the har file in the entry/libs folder and add the dependencies in entry/build.gradle file.
 ```
 	dependencies {
 		implementation fileTree(dir: 'libs', include: ['*.har'])
@@ -64,7 +75,7 @@ app:mli_letter_color="#FFFFFF"          // letter color {#FFFFFF - WHITE}
 app:mli_letter_size="26"                // letter size SP
 app:mli_letters_number="1"              // number of letters to get from `mli_letter`
 app:mli_initials="false"                // turn on initials mode (takes `mli_letters_number` of letters of each word in `mli_letter`)
-app:mli_initials_number="2"             // number of initials to be showed
+app:mli_initials_number="2"             // number of initials to be shown
 ```
 
 Rectangular shape with rounded corners code:
