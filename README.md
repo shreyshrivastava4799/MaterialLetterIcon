@@ -13,9 +13,9 @@ We are very thankful to Ivan Baranov.
 1.For using MaterialLetterIcon module in sample app, include the source code and add the below dependencies in entry/build.gradle to generate hap/support.har.
 ```
 	dependencies {
-		implementation project(':support')
-        implementation fileTree(dir: 'libs', include: ['*.har'])
-        testCompile 'junit:junit:4.12'
+		implementation project(':materiallettericon')
+        	implementation fileTree(dir: 'libs', include: ['*.har'])
+        	testCompile 'junit:junit:4.12'
 	}
 ```
 2.For using MaterialLetterIcon in separate application using har file, add the har file in the entry/libs folder and add the dependencies in entry/build.gradle file.
