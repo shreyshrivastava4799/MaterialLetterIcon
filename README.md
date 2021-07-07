@@ -1,19 +1,31 @@
 # MaterialLetterIcon
-Material letter icon with shape background.
+Material letter icon replicates contacts icon view with options for several shapes, backgrounds, fonts and sizes.
 
 ![Countries](image/countries.png)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 ![Contacts](image/contacts.png)
 
 ## Source
-The code in this repository was inspired from [IvBaranov/MaterialLetterIcon](https://github.com/IvBaranov/MaterialLetterIcon). 
-We are very thankful to Ivan Baranov - author of the original version. 
+The code in this repository was inspired from [IvBaranov/MaterialLetterIcon - Release 0.2.4](https://github.com/IvBaranov/MaterialLetterIcon). 
+We are very thankful to Ivan Baranov. 
 
 ## Dependency
-Library not present so how to add then?
+1.For using MaterialLetterIcon module in sample app, include the source code and add the below dependencies in entry/build.gradle to generate hap/support.har.
+```
+	dependencies {
+		implementation project(':support')
+        implementation fileTree(dir: 'libs', include: ['*.har'])
+        testCompile 'junit:junit:4.12'
+	}
+```
+2.For using MaterialLetterIcon in separate application using har file, add the har file in the entry/libs folder and add the dependencies in entry/build.gradle file.
+```
+	dependencies {
+		implementation fileTree(dir: 'libs', include: ['*.har'])
+		testCompile 'junit:junit:4.12'
+	}
 
-
-​
+```
 ## Usage
 Declare in XML (see xml attributes below for customization):
 
@@ -30,7 +42,7 @@ Declare in XML (see xml attributes below for customization):
 Or static initializer (see xml attributes below for customization):
 
 ```
-MaterialLetterIcon icon = new MaterialLetterIcon.Builder(context) //
+MaterialLetterIcon icon = new MaterialLetterIcon.Builder(context) 
             .shapeColor(Color.BLACK)
             .shapeType(SHAPE.CIRCLE)
             .letter("S")
@@ -45,10 +57,10 @@ MaterialLetterIcon icon = new MaterialLetterIcon.Builder(context) //
 
 Configure using xml attributes or setters in code:
 ```
- ----- this has problem app:mli_shape_color="Color.BLACK"      // shape color 
+app:mli_shape_color="#000000"           // shape color {#000000 - BLACK} 
 app:mli_shape_type="0"                  // shape type index of { CIRCLE, RECT, ROUND_RECT, TRIANGLE }
 app:mli_letter=""                       // letter, string or initials to get letters from
-app:mli_letter_color="Color.WHITE"     // letter color
+app:mli_letter_color="#FFFFFF"          // letter color {#FFFFFF - WHITE}
 app:mli_letter_size="26"                // letter size SP
 app:mli_letters_number="1"              // number of letters to get from `mli_letter`
 app:mli_initials="false"                // turn on initials mode (takes `mli_letters_number` of letters of each word in `mli_letter`)
@@ -57,8 +69,8 @@ app:mli_initials_number="2"             // number of initials to be showed
 
 Rectangular shape with rounded corners code:
 ```
-MaterialLetterIcon icon = new MaterialLetterIcon.Builder(context) //
-            .shapeColor(getResources().getColor(R.color.circle_color))
+MaterialLetterIcon icon = new MaterialLetterIcon.Builder(context) 
+            .shapeColor(Color.BLUE)
             .shapeType(SHAPE.ROUND_RECT)
             .roundRectRx(8) // default x-corner radius
             .roundRectRy(8) // default x-corner radius
