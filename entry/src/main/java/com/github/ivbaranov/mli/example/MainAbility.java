@@ -16,10 +16,13 @@
 
 package com.github.ivbaranov.mli.example;
 
-import com.github.ivbaranov.mli.example.slice.MainAbilitySlice;
 import ohos.aafwk.ability.Ability;
 import ohos.aafwk.content.Intent;
+import com.github.ivbaranov.mli.example.slice.MainAbilitySlice;
 
+/**
+ * MainAbility.
+ */
 public class MainAbility extends Ability {
     @Override
     public void onStart(Intent intent) {

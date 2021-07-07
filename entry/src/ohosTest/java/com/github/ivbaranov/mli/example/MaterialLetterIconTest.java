@@ -16,8 +16,8 @@
 
 package com.github.ivbaranov.mli.example;
 
-import static java.lang.Math.abs;
 import static org.junit.Assert.*;
+import static java.lang.Math.abs;
 import com.github.ivbaranov.mli.MaterialLetterIcon;
 import ohos.aafwk.ability.delegation.AbilityDelegatorRegistry;
 import ohos.agp.components.Attr;
