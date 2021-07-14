@@ -1,7 +1,0 @@
-
-y
-java:S1450*"WRemove the "itemList" field and declare it as a local variable in the relevant methods.(Õ—Ï·ýÿÿÿÿ8ë¥þ°§/
-w
-java:S1450+"ZRemove the "listAdapter" field and declare it as a local variable in the relevant methods.(þ¶ó‰8ÕÄ››¦/
-‰
-java:S1845""gRename field "contacts" to prevent any misunderstanding/clash with field "CONTACTS" defined on line 33.(ù¼»·ýÿÿÿÿ8Š£°›¦/

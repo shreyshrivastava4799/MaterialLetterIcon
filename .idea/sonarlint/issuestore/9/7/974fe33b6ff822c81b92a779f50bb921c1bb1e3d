@@ -1,7 +1,0 @@
-
-y
-java:S1450("WRemove the "itemList" field and declare it as a local variable in the relevant methods.(Õ—Ï·ýÿÿÿÿ8Üðÿ°§/
-w
-java:S1450)"ZRemove the "listAdapter" field and declare it as a local variable in the relevant methods.(þ¶ó‰8£Ä››¦/
-†
-java:S1845""iRename field "countries" to prevent any misunderstanding/clash with field "COUNTRIES" defined on line 33.(ˆ‚ü…8¡å´š¦/
